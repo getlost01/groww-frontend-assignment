@@ -15,7 +15,8 @@ interface ThemeData {
 }
 
 interface ThemeState {
-  data: ThemeData | null;
+  themeData: ThemeData;
+  isLoading: boolean;
   fetchTheme: () => Promise<void>;
 }
 
@@ -37,14 +38,17 @@ const GET_THEME_API = 'https://groww-intern-assignment.vercel.app/v1/api/merchan
 // --------------------------------------------------
 
 const useCustomTheme = create<ThemeState>((set) => ({
-  data: null,
+  themeData: defaultTheme,
+  isLoading: false,
   fetchTheme: async () => {
     try {
-      const response = await axios.get<ThemeData>(GET_THEME_API);
-      set({ data: response.data });
+        set({ isLoading: true });
+        const response = await axios.get<ThemeData>(GET_THEME_API);
+        set({ themeData: response.data });
     } catch (error) {
-      console.error('Error fetching theme:', error);
-      set({ data: defaultTheme });
+        console.error('Error fetching theme:', error);
+    } finally {
+        set({ isLoading: false });
     }
   },
 }));
