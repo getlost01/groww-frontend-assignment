@@ -1,5 +1,6 @@
 import type { AppProps } from "next/app";
-import React, { useEffect } from "react";
+import Cookies from "js-cookie";
+import React, { useEffect, useRef } from "react";
 // mui
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 // custom theme
@@ -9,9 +10,13 @@ import useCustomTheme from "@/zustand/customTheme";
 
 export default function App({ Component, pageProps }: AppProps) {
   const { themeData, fetchTheme } = useCustomTheme();
+  const isApiCalled = useRef(false);
 
   useEffect(() => {
-    fetchTheme();
+    if (Cookies.get("isCustomTheme") === "true" && !isApiCalled.current) {
+      fetchTheme();
+      isApiCalled.current = true;
+    }
   }, []);
 
   // Custom theme for MUI
