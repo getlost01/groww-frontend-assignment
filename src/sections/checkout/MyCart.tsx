@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 // @mui
 import { useTheme } from "@mui/material/styles";
 import {
@@ -16,50 +16,22 @@ import {
   TableRow,
 } from "@mui/material";
 import Image from "@/components/standard-components/image/Image";
-import axios from "axios";
+import useProductData from "@/zustand/productsData";
 
 // ----------------------------------------------------------------------
-const products = [
-  {
-    id: 4,
-    title: "Mens Casual Slim Fit",
-    price: 15.99,
-    image: "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
-    quantity: 8,
-  },
-  {
-    id: 17,
-    title: "Rain Jacket Women Windbreaker Striped Climbing Raincoats",
-    price: 39.99,
-    image: "https://fakestoreapi.com/img/71HblAHs5xL._AC_UY879_-2.jpg",
-    quantity: 4,
-  },
-  {
-    id: 9,
-    title: "WD 2TB Elements Portable External Hard Drive - USB 3.0",
-    price: 64,
-    image: "https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg",
-    quantity: 9,
-  },
-  {
-    id: 3,
-    title: "Mens Cotton Jacket",
-    price: 55.99,
-    image: "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg",
-    quantity: 3,
-  },
-  {
-    id: 14,
-    title: " Super Ultrawide Screen QLED",
-    price: 999.99,
-    image: "https://fakestoreapi.com/img/81Zt42ioCgL._AC_SX679_.jpg",
-    quantity: 8,
-  },
-];
-// ----------------------------------------------------------------------
-
 export default function MyCart() {
   const palette = useTheme().palette;
+
+  const { productsData, fetchProductData } = useProductData();
+
+  const isApiCalled = useRef(false);
+
+  useEffect(() => {
+    if (!isApiCalled.current) {
+      fetchProductData();
+      isApiCalled.current = true;
+    }
+  }, []);
 
   return (
     <Grid item xs={12} md={8} order={{ xs: 2, md: 1 }}>
@@ -77,7 +49,7 @@ export default function MyCart() {
         <TableContainer>
           <Table>
             <TableBody>
-              {products.map((product) => (
+              {productsData.map((product) => (
                 <TableRow key={product.id} hover>
                   <TableCell component="th" scope="row" sx={{ pr: 0.5 }}>
                     <Box
@@ -171,7 +143,7 @@ export default function MyCart() {
                     sx={{ fontSize: 12, fontWeight: 600 }}
                   >
                     &#8377;
-                    {products.reduce((acc, product) => {
+                    {productsData.reduce((acc, product) => {
                       return acc + product.price * product.quantity;
                     }, 0)}
                   </Typography>
@@ -216,7 +188,7 @@ export default function MyCart() {
                     sx={{ fontSize: 12, fontWeight: 600 }}
                   >
                     &#8377;
-                    {products.reduce((acc, product) => {
+                    {productsData.reduce((acc, product) => {
                       return acc + product.price * product.quantity;
                     }, 0) + 50}
                   </Typography>
