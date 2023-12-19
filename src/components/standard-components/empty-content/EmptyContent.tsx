@@ -27,17 +27,17 @@ export default function EmptyContent({ title, description, img, sx, ...other }: 
       <Image
         disabledEffect
         alt="empty content"
-        src={img || '/assets/illustrations/illustration_empty_content.svg'}
+        src={img || '/assets/empty-cart.png'}
         draggable={false}
-        sx={{ height: 240, mb: 3 }}
+        sx={{ height: 240, mb: 3, bgcolor: '#fff', borderRadius: 1.5 }}
       />
 
-      <Typography variant="h5" gutterBottom>
+      <Typography variant="h5">
         {title}
       </Typography>
 
       {description && (
-        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+        <Typography variant="caption" sx={{ color: 'text.secondary' }}>
           {description}
         </Typography>
       )}
