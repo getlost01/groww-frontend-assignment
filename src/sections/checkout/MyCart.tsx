@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
-import { v4 as uuidv4 } from "uuid";
 // @mui
 import { useTheme } from "@mui/material/styles";
 import {
@@ -27,6 +26,17 @@ import EmptyContent from "@/components/standard-components/empty-content/EmptyCo
 import OrderSummary from "./OrderSummary";
 
 // ----------------------------------------------------------------------
+
+const generateShortUUID = () => {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+  for (let i = 0; i < 10; i++) {
+    result += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return result;
+};
+
+// ----------------------------------------------------------------------
 export default function MyCart() {
   const palette = useTheme().palette;
 
@@ -50,10 +60,10 @@ export default function MyCart() {
       fetchProductData();
       isApiCalled.current = true;
     }
-  }, []);
+  }, [fetchProductData]);
 
   const handleClickPayment = () => {
-    const id = uuidv4().slice(0, 8);
+    const id = generateShortUUID();
     intializeTransaction(
       id,
       new Date().toISOString(),

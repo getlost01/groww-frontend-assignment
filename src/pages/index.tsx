@@ -10,7 +10,7 @@ export default function HomePage() {
 
   useEffect(() => {
     push("/checkout");
-  }, []);
+  }, [push]);
 
   return (
       <Head>

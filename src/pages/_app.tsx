@@ -18,7 +18,7 @@ export default function App({ Component, pageProps }: AppProps) {
       fetchTheme();
       isApiCalled.current = true;
     }
-  }, []);
+  }, [fetchTheme]);
 
   const theme = getTheme(themeData);
 
