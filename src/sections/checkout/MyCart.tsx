@@ -12,17 +12,24 @@ import {
   TableBody,
   TableCell,
   TableContainer,
-  TableHead,
   TableRow,
+  Skeleton,
 } from "@mui/material";
 import Image from "@/components/standard-components/image/Image";
 import useProductData from "@/zustand/productsData";
+import EmptyContent from "@/components/standard-components/empty-content/EmptyContent";
 
 // ----------------------------------------------------------------------
 export default function MyCart() {
   const palette = useTheme().palette;
 
-  const { productsData, fetchProductData } = useProductData();
+  const {
+    productsData,
+    fetchProductData,
+    isLoading,
+    isEmptyCart,
+    isErrorOccured,
+  } = useProductData();
 
   const isApiCalled = useRef(false);
 
@@ -46,72 +53,99 @@ export default function MyCart() {
           My Cart
         </Typography>
         <Divider />
-        <TableContainer>
-          <Table>
-            <TableBody>
-              {productsData.map((product) => (
-                <TableRow key={product.id} hover>
-                  <TableCell component="th" scope="row" sx={{ pr: 0.5 }}>
-                    <Box
-                      sx={{
-                        py: 1,
-                        px: 0.5,
-                        width: 72,
-                        height: 58,
-                        display: "flex",
-                        backgroundColor: "#fff",
-                        borderRadius: 2,
-                        border: `1px solid ${palette.divider}`,
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Image
-                        src={product.image}
-                        alt={product.title}
-                        sx={{ height: 48 }}
-                      />
-                    </Box>
-                  </TableCell>
-                  <TableCell>
-                    <Box color={palette.text.secondary}>
+        {isErrorOccured ? (
+          <EmptyContent
+            title="Something went wrong"
+            img="/assets/error-loading.svg"
+            description="It seem that API is not working. Please try again later."
+          />
+        ) : isLoading ? (
+          <TableContainer>
+            <Table>
+              <TableBody>
+                {Array.from(Array(4).keys()).map((_, index) => (
+                  <TableRow key={index} hover>
+                    <TableCell component="th" scope="row">
+                      <Skeleton variant="rounded" height={64} />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        ) : isEmptyCart ? (
+          <EmptyContent
+            title="Your cart is empty"
+            description="Looks like you haven't added any items to the cart yet."
+          />
+        ) : (
+          <TableContainer>
+            <Table>
+              <TableBody>
+                {productsData.map((product) => (
+                  <TableRow key={product.id} hover>
+                    <TableCell component="th" scope="row" sx={{ pr: 0.5 }}>
+                      <Box
+                        sx={{
+                          py: 1,
+                          px: 0.5,
+                          width: 72,
+                          height: 58,
+                          display: "flex",
+                          backgroundColor: "#fff",
+                          borderRadius: 2,
+                          border: `1px solid ${palette.divider}`,
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Image
+                          src={product.image}
+                          alt={product.title}
+                          sx={{ height: 48 }}
+                        />
+                      </Box>
+                    </TableCell>
+                    <TableCell>
+                      <Box color={palette.text.secondary}>
+                        <Typography
+                          variant="body2"
+                          sx={{ fontSize: 14, fontWeight: 600 }}
+                        >
+                          {product.title}
+                        </Typography>
+                        <Typography variant="body2" sx={{ fontSize: 14 }}>
+                          &#8377;{product.price}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                    <TableCell align="center">
                       <Typography
                         variant="body2"
-                        sx={{ fontSize: 14, fontWeight: 600 }}
-                      >
-                        {product.title}
-                      </Typography>
-                      <Typography variant="body2" sx={{ fontSize: 14 }}>
-                        &#8377;{product.price}
-                      </Typography>
-                    </Box>
-                  </TableCell>
-                  <TableCell align="center">
-                    <Typography
-                      variant="body2"
-                      sx={{
-                        p: 1,
-                        fontSize: 16,
-                        alignSelf: "center",
-                        justifySelf: "flex-end",
-                        color: palette.primary.main,
-                        fontWeight: 600,
-                        "&:before": {
-                          content: '"x"',
+                        sx={{
+                          p: 1,
+                          fontSize: 16,
+                          alignSelf: "center",
+                          justifySelf: "flex-end",
                           color: palette.primary.main,
                           fontWeight: 600,
-                          fontSize: 14,
-                        },
-                      }}
-                    >
-                      {product.quantity}
-                    </Typography>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+                          "&:before": {
+                            content: '"x"',
+                            color: palette.primary.main,
+                            fontWeight: 600,
+                            fontSize: 14,
+                          },
+                        }}
+                      >
+                        {product.quantity}
+                      </Typography>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        )}
 
         <Divider />
 
@@ -202,6 +236,7 @@ export default function MyCart() {
             fullWidth
             variant="contained"
             size="medium"
+            disabled={isEmptyCart || isErrorOccured || isLoading}
             sx={{ borderRadius: 2, width: 150, fontSize: 12 }}
           >
             Go to Payment
