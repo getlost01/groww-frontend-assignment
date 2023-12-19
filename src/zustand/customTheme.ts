@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import axios from "axios";
 
+// State Management for Custom Theme Data
+
 // ----------------------- Types / Interfaces -----------------------
 
 interface ThemeData {

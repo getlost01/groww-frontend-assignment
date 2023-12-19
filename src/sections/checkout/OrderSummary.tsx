@@ -28,11 +28,10 @@ export default function OrderSummary() {
         Order Summary
       </Typography>
 
+      {/* // Table for Order Summary */}
       <TableContainer>
         <Table>
           <TableBody>
-
-
             <TableRow>
               <TableCell sx={{ p: 1, pl: 2 }}>
                 <Typography
@@ -53,7 +52,6 @@ export default function OrderSummary() {
               </TableCell>
             </TableRow>
 
-
             <TableRow>
               <TableCell sx={{ p: 1, pl: 2 }}>
                 <Typography variant="body2" sx={{ fontSize: 12 }}>
@@ -67,7 +65,6 @@ export default function OrderSummary() {
               </TableCell>
             </TableRow>
 
-
             <TableRow>
               <TableCell sx={{ p: 1, pl: 2 }}>
                 <Typography variant="body2" sx={{ fontSize: 12 }}>
@@ -80,7 +77,6 @@ export default function OrderSummary() {
                 </Typography>
               </TableCell>
             </TableRow>
-
 
             <TableRow>
               <TableCell sx={{ p: 1, pl: 2 }}>
@@ -105,8 +101,6 @@ export default function OrderSummary() {
                 </Typography>
               </TableCell>
             </TableRow>
-
-
           </TableBody>
         </Table>
       </TableContainer>

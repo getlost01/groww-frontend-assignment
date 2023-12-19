@@ -11,6 +11,8 @@ export default function ShippingAddress() {
 
   return (
     <Grid item xs={12} md={4} order={{ xs: 1, md: 2 }}>
+
+      {/* // Card for Shipping Address */}
       <Card
         sx={{
           border: `1px solid ${palette.divider}`,
@@ -45,6 +47,7 @@ export default function ShippingAddress() {
               />
             </Box>
           </Box>
+
           <Box sx={{ ml: 1 }} color={palette.text.secondary}>
             <Typography variant="body2" sx={{ fontSize: 14, fontWeight: 600 }}>
               Mr. Aagam Jain
@@ -57,6 +60,7 @@ export default function ShippingAddress() {
               Bangalore, India
             </Typography>
           </Box>
+          
         </Box>
       </Card>
     </Grid>

@@ -27,6 +27,7 @@ import OrderSummary from "./OrderSummary";
 
 // ----------------------------------------------------------------------
 
+// For generating random id
 const generateShortUUID = () => {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let result = '';
@@ -42,6 +43,7 @@ export default function MyCart() {
 
   const router = useRouter();
 
+  // Fetching data from zustand store
   const {
     productsData,
     totalPrice,
@@ -53,8 +55,10 @@ export default function MyCart() {
 
   const { intializeTransaction } = usePaymentState();
 
+  // To prevents multiple api calls
   const isApiCalled = useRef(false);
 
+  // Fetch products data from api
   useEffect(() => {
     if (!isApiCalled.current) {
       fetchProductData();
@@ -62,6 +66,7 @@ export default function MyCart() {
     }
   }, [fetchProductData]);
 
+  // Handle click payment button
   const handleClickPayment = () => {
     const id = generateShortUUID();
     intializeTransaction(
@@ -110,14 +115,19 @@ export default function MyCart() {
             </Button>
           </Box>
         </Box>
+
         <Divider />
+
         {isErrorOccured ? (
+
           <EmptyContent
             title="Something went wrong"
             img="/assets/error-loading.svg"
             description="It seem that API is not working. Please try again later."
           />
+
         ) : isLoading ? (
+
           <TableContainer>
             <Table>
               <TableBody>
@@ -131,12 +141,15 @@ export default function MyCart() {
               </TableBody>
             </Table>
           </TableContainer>
+
         ) : isEmptyCart ? (
+
           <EmptyContent
             title="Your cart is empty"
             description="Looks like you haven't added any items to the cart yet."
           />
         ) : (
+
           <TableContainer>
             <Table>
               <TableBody>
@@ -164,6 +177,7 @@ export default function MyCart() {
                         />
                       </Box>
                     </TableCell>
+
                     <TableCell>
                       <Box color={palette.text.secondary}>
                         <Typography
@@ -177,6 +191,7 @@ export default function MyCart() {
                         </Typography>
                       </Box>
                     </TableCell>
+
                     <TableCell align="center">
                       <Typography
                         variant="body2"
@@ -207,8 +222,11 @@ export default function MyCart() {
 
         <Divider />
 
+
+        {/* // Order Summary */}
         <OrderSummary />
 
+        {/* // Payment Button */}
         <Box sx={{ p: 2, display: "flex", justifyContent: "flex-end" }}>
           <Button
             fullWidth

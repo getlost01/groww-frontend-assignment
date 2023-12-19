@@ -12,6 +12,7 @@ import useCustomTheme from "@/zustand/customTheme";
 
 export default function Header() {
   const theme = useTheme();
+
   const { themeData, fetchTheme, setDefaultTheme } = useCustomTheme();
 
   const [isCustomTheme, setIsCustomTheme] = useState(
@@ -41,6 +42,9 @@ export default function Header() {
       zIndex={99}
       bgcolor={theme.palette.background.paper}
     >
+      
+      {/* // Logo  */}
+
       <Box sx={{ display: "flex", alignItems: "center", ml: { xs: 1, md: 5 } }}>
         <Tooltip title={themeData?.merchantName}>
           <Logo
@@ -65,6 +69,9 @@ export default function Header() {
           {themeData?.merchantName} Cart
         </Typography>
       </Box>
+
+
+      {/* // Theme Button  */}
 
       <Box
         sx={{

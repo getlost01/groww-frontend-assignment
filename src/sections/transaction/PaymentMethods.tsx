@@ -80,6 +80,7 @@ export default function PaymentMethods() {
         </Typography>
         <Divider />
 
+        {/* // If transaction is done then show status illustration */}
         {isTransactionDone ? (
           <>
             <Box
@@ -156,6 +157,7 @@ export default function PaymentMethods() {
             </Box>
           </>
         ) : (
+          // If transaction is not done then show payment options
           <TableContainer>
             <Table>
               <TableBody>
@@ -285,13 +287,17 @@ export default function PaymentMethods() {
 
         <Divider sx={{ mb: 1 }} />
 
+        {/* // If transaction is done then show transaction id */}
         <Typography variant="caption" sx={{ px: 2, fontSize: 14 }}>
           <span style={{ fontWeight: 600 }}> Transaction Id: </span>
           {paymentData.transactionId}
         </Typography>
         <Divider sx={{ my: 1 }} />
+
+        {/* // Order Summary */}
         <OrderSummary />
 
+        {/* // Confirm Payment Button */}
         <Box sx={{ p: 2, display: "flex", justifyContent: "flex-end" }}>
           <Button
             fullWidth

@@ -1,5 +1,7 @@
 import { create } from "zustand";
 
+// State Management for Payment Data
+
 // ----------------------- Types / Interfaces -----------------------
 
 interface ProductData {

@@ -9,7 +9,6 @@ import CheckoutSection from "@/sections/checkout";
 // ----------------------------------------------------------------------
 
 export default function CheckoutPage() {
-
   return (
     <Layout>
       <Head>

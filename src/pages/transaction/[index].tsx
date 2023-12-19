@@ -13,6 +13,7 @@ import usePaymentState from "@/zustand/paymentState";
 
 export default function CheckoutPage() {
   const router = useRouter();
+  const { push } = router;
   const { index } = router.query;
 
   const { paymentData } = usePaymentState();
@@ -20,7 +21,7 @@ export default function CheckoutPage() {
   useEffect(() => {
     if (paymentData.transactionId !== index) {
       setTimeout(() => {
-        router.push("/checkout");
+        push("/checkout");
       }, 10000);
     }
   }, [paymentData.transactionId]);

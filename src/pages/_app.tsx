@@ -10,9 +10,13 @@ import { getTheme } from "@/utils/colors";
 // ----------------------------------------------------------------------
 
 export default function App({ Component, pageProps }: AppProps) {
+
   const { themeData, fetchTheme } = useCustomTheme();
+
+  // To prevents multiple api calls
   const isApiCalled = useRef(false);
 
+  // Fetch theme from api if user has custom theme
   useEffect(() => {
     if (Cookies.get("isCustomTheme") === "true" && !isApiCalled.current) {
       fetchTheme();
@@ -20,6 +24,7 @@ export default function App({ Component, pageProps }: AppProps) {
     }
   }, [fetchTheme]);
 
+  // Get theme from themeData
   const theme = getTheme(themeData);
 
   return (

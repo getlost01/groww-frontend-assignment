@@ -16,6 +16,11 @@ interface ThemeData {
 
 // --------------------------------------------------
 
+// setting our custom theme colors from the merchant api response
+// and returning a theme object to be used in the app with MUI
+// curresponding light and dark colors are calculated using MUI's 
+// lighten and darken functions
+
 export const getTheme = (themeData: ThemeData) => {
   const theme = createTheme({
     palette: {

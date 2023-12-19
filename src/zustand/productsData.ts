@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import axios from "axios";
-import { parse } from "path";
+
+// State Management for Product Data
 
 // ----------------------- Types / Interfaces -----------------------
 

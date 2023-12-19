@@ -9,6 +9,8 @@ import useCustomTheme from "@/zustand/customTheme";
 
 // ----------------------------------------------------------------------
 
+// I use Public Sans font for this project
+
 const primaryFont = Public_Sans({
   weight: ["400", "500", "600", "700", "800"],
   subsets: ["latin"],
@@ -28,6 +30,8 @@ export default function Layout({ children }: Props) {
 
   return (
     <>
+      {/* // Loading during theme fetch */}
+
       {isLoading && (
         <Box
           sx={{
@@ -55,6 +59,7 @@ export default function Layout({ children }: Props) {
         bgcolor={theme.palette.background.default}
         color={theme.palette.text.primary}
       >
+
         {/* Header  */}
         <Header />
 
