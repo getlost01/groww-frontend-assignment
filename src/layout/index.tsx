@@ -39,7 +39,7 @@ export default function Layout({ children }: Props) {
         justifyContent="center"
         sx={{ minHeight: "100vh" }}
       >
-        <Grid item xs={12} sm={10} md={9} lg={8} p={1.5}>
+        <Grid item xs={12} sm={11} md={10} lg={8} p={1.5}>
           {children}
         </Grid>
       </Grid>
