@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import axios from "axios";
+import { parse } from "path";
 
 // ----------------------- Types / Interfaces -----------------------
 
@@ -22,6 +23,7 @@ interface ProductDataState {
   isLoading: boolean;
   isEmptyCart: boolean;
   isErrorOccured: boolean;
+  totalPrice: number;
   fetchProductData: () => Promise<void>;
 }
 
@@ -38,13 +40,19 @@ const useProductData = create<ProductDataState>((set) => ({
   isLoading: true,
   isEmptyCart: false,
   isErrorOccured: false,
+  totalPrice: 0,
   fetchProductData: async () => {
     try {
       set({ isLoading: true });
       const response = await axios.get<ProductsAPIData>(Get_Product_Data_Url);
+      const totalPrice = response.data.products.reduce(
+        (acc, product) => acc + product.price * product.quantity,
+        0
+      );
       set({
         isEmptyCart: response.data.products.length === 0,
         productsData: response.data.products,
+        totalPrice: parseFloat(totalPrice.toFixed(2)),
         paymentMenthods: response.data.paymentMenthods,
       });
     } catch (error) {
@@ -52,9 +60,9 @@ const useProductData = create<ProductDataState>((set) => ({
         isEmptyCart: true,
         productsData: [],
         paymentMenthods: [],
+        totalPrice: 0,
         isErrorOccured: true,
       });
-      console.error("Error fetching data:", error);
     } finally {
       set({ isLoading: false });
     }

@@ -15,6 +15,8 @@ import {
   TableRow,
   Skeleton,
 } from "@mui/material";
+
+import Iconify from "@/components/standard-components/iconify/Iconify";
 import Image from "@/components/standard-components/image/Image";
 import useProductData from "@/zustand/productsData";
 import EmptyContent from "@/components/standard-components/empty-content/EmptyContent";
@@ -25,6 +27,7 @@ export default function MyCart() {
 
   const {
     productsData,
+    totalPrice,
     fetchProductData,
     isLoading,
     isEmptyCart,
@@ -49,9 +52,34 @@ export default function MyCart() {
           borderRadius: 2,
         }}
       >
-        <Typography variant="h6" fontSize={18} fontWeight={600} px={2} py={1}>
-          My Cart
-        </Typography>
+        <Box sx={{ p: 2, display: "flex", justifyContent: "space-between" }}>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Typography variant="h6" fontSize={18} fontWeight={600}>
+              My Cart
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{ fontSize: 14, ml: 0.5, color: palette.text.secondary }}
+            >
+              ({productsData.length} items)
+            </Typography>
+          </Box>
+          <Box>
+            <Button
+              variant="outlined"
+              size="small"
+              sx={{
+                borderRadius: 2,
+                fontSize: 12,
+                textTransform: "none",
+              }}
+              startIcon={<Iconify icon="mdi:refresh" width={16} height={16} />}
+              onClick={() => fetchProductData()}
+            >
+              Refresh
+            </Button>
+          </Box>
+        </Box>
         <Divider />
         {isErrorOccured ? (
           <EmptyContent
@@ -177,33 +205,31 @@ export default function MyCart() {
                     sx={{ fontSize: 12, fontWeight: 600 }}
                   >
                     &#8377;
-                    {productsData.reduce((acc, product) => {
-                      return acc + product.price * product.quantity;
-                    }, 0)}
+                    {totalPrice}
                   </Typography>
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell sx={{ p: 1, pl: 2 }}>
                   <Typography variant="body2" sx={{ fontSize: 12 }}>
-                    Shipping
+                    Shipping (Fixed Charge)
                   </Typography>
                 </TableCell>
                 <TableCell sx={{ p: 1, pr: 2 }} align="right">
                   <Typography variant="body2" sx={{ fontSize: 12 }}>
-                    &#8377;40
+                    &#8377;{totalPrice > 0 ? 40 : 0}
                   </Typography>
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell sx={{ p: 1, pl: 2 }}>
                   <Typography variant="body2" sx={{ fontSize: 12 }}>
-                    Tax
+                    Tax (5% GST)
                   </Typography>
                 </TableCell>
                 <TableCell sx={{ p: 1, pr: 2 }} align="right">
                   <Typography variant="body2" sx={{ fontSize: 12 }}>
-                    &#8377;10
+                    &#8377;{(totalPrice * 0.05).toFixed(2)}
                   </Typography>
                 </TableCell>
               </TableRow>
@@ -222,9 +248,11 @@ export default function MyCart() {
                     sx={{ fontSize: 12, fontWeight: 600 }}
                   >
                     &#8377;
-                    {productsData.reduce((acc, product) => {
-                      return acc + product.price * product.quantity;
-                    }, 0) + 50}
+                    {(
+                      totalPrice +
+                      totalPrice * 0.05 +
+                      (totalPrice > 0 ? 40 : 0)
+                    ).toFixed(2)}
                   </Typography>
                 </TableCell>
               </TableRow>
