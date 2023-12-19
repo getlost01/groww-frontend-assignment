@@ -53,8 +53,7 @@ export default function MyCart() {
   }, []);
 
   const handleClickPayment = () => {
-    const id = uuidv4();
-    console.log(id);
+    const id = uuidv4().slice(0, 8);
     intializeTransaction(
       id,
       new Date().toISOString(),
