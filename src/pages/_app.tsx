@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const isApiCalled = useRef(false);
 
   useEffect(() => {
-    if (Cookies.get("isCustomTheme") !== "true" && !isApiCalled.current) {
+    if (Cookies.get("isCustomTheme") === "true" && !isApiCalled.current) {
       fetchTheme();
       isApiCalled.current = true;
     }
