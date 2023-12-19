@@ -18,6 +18,7 @@ interface ThemeState {
   themeData: ThemeData;
   isLoading: boolean;
   fetchTheme: () => Promise<void>;
+  setDefaultTheme: () => void;
 }
 
 // ----------------------- Const Data -----------------------
@@ -52,6 +53,7 @@ const useCustomTheme = create<ThemeState>((set) => ({
       set({ isLoading: false });
     }
   },
+  setDefaultTheme: () => set({ themeData: defaultTheme }),
 }));
 
 export default useCustomTheme;

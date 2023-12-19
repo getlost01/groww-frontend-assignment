@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import Cookies from "js-cookie";
 // @mui
-import { Box, Grid, Tooltip, Typography, Button } from "@mui/material";
+import { Box, Tooltip, Typography, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 // Components
 import Logo from "../../standard-components/logo";
@@ -17,6 +17,18 @@ export default function Header() {
   const [isCustomTheme, setIsCustomTheme] = useState(
     Cookies.get("isCustomTheme") === "true",
   );
+
+  const handleThemeChange = (state: string) => {
+    if (state === "default") {
+      setDefaultTheme();
+      setIsCustomTheme(false);
+      Cookies.set("isCustomTheme", "false");
+    } else {
+      fetchTheme();
+      setIsCustomTheme(true);
+      Cookies.set("isCustomTheme", "true");
+    }
+  };
 
   return (
     <Box
@@ -52,6 +64,38 @@ export default function Header() {
         >
           {themeData?.merchantName} Cart
         </Typography>
+      </Box>
+
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-end",
+          mr: { xs: 1, md: 5 },
+          p: 0.5,
+          border: `1px solid ${theme.palette.divider}`,
+          borderRadius: 1,
+        }}
+      >
+        <Button
+          variant={!isCustomTheme ? "contained" : "outlined"}
+          sx={{ width: 60, m: 0.5 }}
+          onClick={() => handleThemeChange("default")}
+        >
+          <Typography variant="caption" sx={{ fontSize: 10 }}>
+            Default
+          </Typography>
+        </Button>
+
+        <Button
+          variant={isCustomTheme ? "contained" : "outlined"}
+          sx={{ width: 60, m: 0.5 }}
+          onClick={() => handleThemeChange("custom")}
+        >
+          <Typography variant="caption" sx={{ fontSize: 10 }}>
+            Random
+          </Typography>
+        </Button>
       </Box>
     </Box>
   );
