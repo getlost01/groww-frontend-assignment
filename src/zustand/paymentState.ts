@@ -27,8 +27,7 @@ interface PaymentState {
     productsData: ProductData[],
     amount: number,
   ) => void;
-  setPaymentMode: (paymentMode: string) => void;
-  setPaymentStatus: (status: string) => void;
+  setPaymentData: (paymentData: PaymentData) => void;
 }
 
 // --------------------------------------------------
@@ -59,20 +58,9 @@ const usePaymentState = create<PaymentState>((set) => ({
       productsData,
     });
   },
-  setPaymentMode: (paymentMode) =>
-    set((state) => ({
-      paymentData: {
-        ...state.paymentData,
-        paymentMode,
-      },
-    })),
-  setPaymentStatus: (status) =>
-    set((state) => ({
-      paymentData: {
-        ...state.paymentData,
-        status,
-      },
-    })),
+  setPaymentData: (paymentData) => {
+    set({ paymentData });
+  },
 }));
 
 export default usePaymentState;

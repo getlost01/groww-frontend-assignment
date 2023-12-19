@@ -14,12 +14,12 @@ interface ProductData {
 
 interface ProductsAPIData {
   products: ProductData[];
-  paymentMenthods: string[];
+  paymentMethods: string[];
 }
 
 interface ProductDataState {
   productsData: ProductData[];
-  paymentMenthods: string[];
+  paymentMethods: string[];
   isLoading: boolean;
   isEmptyCart: boolean;
   isErrorOccured: boolean;
@@ -36,7 +36,7 @@ const Get_Product_Data_Url =
 
 const useProductData = create<ProductDataState>((set) => ({
   productsData: [],
-  paymentMenthods: [],
+  paymentMethods: [],
   isLoading: true,
   isEmptyCart: false,
   isErrorOccured: false,
@@ -53,13 +53,13 @@ const useProductData = create<ProductDataState>((set) => ({
         isEmptyCart: response.data.products.length === 0,
         productsData: response.data.products,
         totalPrice: parseFloat(totalPrice.toFixed(2)),
-        paymentMenthods: response.data.paymentMenthods,
+        paymentMethods: response.data.paymentMethods,
       });
     } catch (error) {
       set({
         isEmptyCart: true,
         productsData: [],
-        paymentMenthods: [],
+        paymentMethods: [],
         totalPrice: 0,
         isErrorOccured: true,
       });
