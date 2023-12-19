@@ -1,4 +1,6 @@
 import React, { useEffect, useRef } from "react";
+import { useRouter } from "next/router";
+import { v4 as uuidv4 } from "uuid";
 // @mui
 import { useTheme } from "@mui/material/styles";
 import {
@@ -15,15 +17,20 @@ import {
   TableRow,
   Skeleton,
 } from "@mui/material";
-
+// components
 import Iconify from "@/components/standard-components/iconify/Iconify";
 import Image from "@/components/standard-components/image/Image";
+// states
 import useProductData from "@/zustand/productsData";
+import usePaymentState from "@/zustand/paymentState";
 import EmptyContent from "@/components/standard-components/empty-content/EmptyContent";
+import OrderSummary from "./OrderSummary";
 
 // ----------------------------------------------------------------------
 export default function MyCart() {
   const palette = useTheme().palette;
+
+  const router = useRouter();
 
   const {
     productsData,
@@ -34,6 +41,8 @@ export default function MyCart() {
     isErrorOccured,
   } = useProductData();
 
+  const { intializeTransaction } = usePaymentState();
+
   const isApiCalled = useRef(false);
 
   useEffect(() => {
@@ -42,6 +51,18 @@ export default function MyCart() {
       isApiCalled.current = true;
     }
   }, []);
+
+  const handleClickPayment = () => {
+    const id = uuidv4();
+    console.log(id);
+    intializeTransaction(
+      id,
+      new Date().toISOString(),
+      productsData,
+      totalPrice,
+    );
+    router.push(`/transaction/${id}`);
+  };
 
   return (
     <Grid item xs={12} md={8} order={{ xs: 2, md: 1 }}>
@@ -177,88 +198,8 @@ export default function MyCart() {
 
         <Divider />
 
-        <Typography
-          variant="subtitle1"
-          fontSize={16}
-          fontWeight={600}
-          px={2}
-          py={1}
-        >
-          Order Summary
-        </Typography>
+        <OrderSummary />
 
-        <TableContainer>
-          <Table>
-            <TableBody>
-              <TableRow>
-                <TableCell sx={{ p: 1, pl: 2 }}>
-                  <Typography
-                    variant="body2"
-                    sx={{ fontSize: 12, fontWeight: 600 }}
-                  >
-                    Subtotal
-                  </Typography>
-                </TableCell>
-                <TableCell sx={{ p: 1, pr: 2 }} align="right">
-                  <Typography
-                    variant="body2"
-                    sx={{ fontSize: 12, fontWeight: 600 }}
-                  >
-                    &#8377;
-                    {totalPrice}
-                  </Typography>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell sx={{ p: 1, pl: 2 }}>
-                  <Typography variant="body2" sx={{ fontSize: 12 }}>
-                    Shipping (Fixed Charge)
-                  </Typography>
-                </TableCell>
-                <TableCell sx={{ p: 1, pr: 2 }} align="right">
-                  <Typography variant="body2" sx={{ fontSize: 12 }}>
-                    &#8377;{totalPrice > 0 ? 40 : 0}
-                  </Typography>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell sx={{ p: 1, pl: 2 }}>
-                  <Typography variant="body2" sx={{ fontSize: 12 }}>
-                    Tax (5% GST)
-                  </Typography>
-                </TableCell>
-                <TableCell sx={{ p: 1, pr: 2 }} align="right">
-                  <Typography variant="body2" sx={{ fontSize: 12 }}>
-                    &#8377;{(totalPrice * 0.05).toFixed(2)}
-                  </Typography>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell sx={{ p: 1, pl: 2 }}>
-                  <Typography
-                    variant="body2"
-                    sx={{ fontSize: 12, fontWeight: 600 }}
-                  >
-                    Total
-                  </Typography>
-                </TableCell>
-                <TableCell sx={{ p: 1, pr: 2 }} align="right">
-                  <Typography
-                    variant="body2"
-                    sx={{ fontSize: 12, fontWeight: 600 }}
-                  >
-                    &#8377;
-                    {(
-                      totalPrice +
-                      totalPrice * 0.05 +
-                      (totalPrice > 0 ? 40 : 0)
-                    ).toFixed(2)}
-                  </Typography>
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
         <Box sx={{ p: 2, display: "flex", justifyContent: "flex-end" }}>
           <Button
             fullWidth
@@ -266,6 +207,7 @@ export default function MyCart() {
             size="medium"
             disabled={isEmptyCart || isErrorOccured || isLoading}
             sx={{ borderRadius: 2, width: 150, fontSize: 12 }}
+            onClick={handleClickPayment}
           >
             Go to Payment
           </Button>
