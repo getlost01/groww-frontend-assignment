@@ -2,9 +2,10 @@ import type { AppProps } from "next/app";
 import Cookies from "js-cookie";
 import React, { useEffect, useRef } from "react";
 // mui
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 // custom theme
 import useCustomTheme from "@/zustand/customTheme";
+import { getTheme } from "@/utils/colors";
 
 // ----------------------------------------------------------------------
 
@@ -13,29 +14,13 @@ export default function App({ Component, pageProps }: AppProps) {
   const isApiCalled = useRef(false);
 
   useEffect(() => {
-    if (Cookies.get("isCustomTheme") === "true" && !isApiCalled.current) {
+    if (Cookies.get("isCustomTheme") !== "true" && !isApiCalled.current) {
       fetchTheme();
       isApiCalled.current = true;
     }
   }, []);
 
-  // Custom theme for MUI
-  const theme = createTheme({
-    palette: {
-      background: {
-        default: themeData?.theme["--background"],
-      },
-      text: {
-        primary: themeData?.theme["--foreground"],
-      },
-      primary: {
-        main: themeData?.theme["--primary"],
-      },
-      secondary: {
-        main: themeData?.theme["--primary-foreground"],
-      },
-    },
-  });
+  const theme = getTheme(themeData);
 
   return (
     <ThemeProvider theme={theme}>
