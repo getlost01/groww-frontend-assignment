@@ -33,7 +33,7 @@ const Logo = forwardRef<HTMLDivElement, LogoProps>(
           disabledEffect
           visibleByDefault
           alt="logo"
-          src={themeData?.merchantLogo || 'https://groww.in/groww-logo-270.png'}
+          src={'/logo.png'}
           width={'100%'}
         />
       </Box>

@@ -59,7 +59,6 @@ export default function Layout({ children }: Props) {
         bgcolor={theme.palette.background.default}
         color={theme.palette.text.primary}
       >
-
         {/* Header  */}
         <Header />
 
@@ -74,6 +73,30 @@ export default function Layout({ children }: Props) {
             {children}
           </Grid>
         </Grid>
+
+        <Box
+          sx={{
+            p: 2,
+            mt: 3,
+            borderTop: `1px solid ${theme.palette.divider}`,
+            textAlign: "center",
+          }}
+        >
+          <Typography
+            variant="caption"
+            sx={{ fontSize: 12, textAlign: "center" }}
+          >
+            Developed with NextJS & MUI by{" "}
+            <a
+              href="https://github.com/getlost01"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: theme.palette.primary.main }}
+            >
+              Aagam Jain
+            </a>
+          </Typography>
+        </Box>
       </Box>
     </>
   );
