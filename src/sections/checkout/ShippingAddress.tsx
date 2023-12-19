@@ -47,13 +47,14 @@ export default function ShippingAddress() {
           </Box>
           <Box sx={{ ml: 1 }} color={palette.text.secondary}>
             <Typography variant="body2" sx={{ fontSize: 14, fontWeight: 600 }}>
-              John Doe
+              Mr. Aagam Jain
             </Typography>
             <Typography variant="body2" sx={{ fontSize: 14 }}>
-              +01 23456789
+              +91 93054 xxxxx
             </Typography>
             <Typography variant="body2" sx={{ fontSize: 14 }}>
-              123 Street Name, City Name
+              1st Floor, Proms Complex, SBI Colony, 1A, Koramangala, 560034,
+              Bangalore, India
             </Typography>
           </Box>
         </Box>
