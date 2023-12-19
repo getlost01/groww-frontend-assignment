@@ -49,10 +49,10 @@ export default function ShippingAddress() {
             <Typography variant="body2" sx={{ fontSize: 14, fontWeight: 600 }}>
               Mr. Aagam Jain
             </Typography>
-            <Typography variant="body2" sx={{ fontSize: 14 }}>
+            <Typography variant="body2" sx={{ fontSize: 13 }}>
               +91 93054 xxxxx
             </Typography>
-            <Typography variant="body2" sx={{ fontSize: 14 }}>
+            <Typography variant="body2" sx={{ fontSize: 13 }}>
               1st Floor, Proms Complex, SBI Colony, 1A, Koramangala, 560034,
               Bangalore, India
             </Typography>

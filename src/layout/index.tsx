@@ -28,7 +28,7 @@ export default function Layout({ children }: Props) {
 
   return (
     <>
-      {isLoading ? (
+      {isLoading && (
         <Box
           sx={{
             position: "fixed",
@@ -49,28 +49,27 @@ export default function Layout({ children }: Props) {
             Fetching Theme...
           </Typography>
         </Box>
-      ) : (
-        <Box
-          className={`${primaryFont.className}`}
-          bgcolor={theme.palette.background.default}
-          color={theme.palette.text.primary}
-        >
-          {/* Header  */}
-          <Header />
-
-          {/* Content  */}
-          <Grid
-            container
-            display="flex"
-            justifyContent="center"
-            sx={{ minHeight: "100vh" }}
-          >
-            <Grid item xs={12} sm={11} md={10} lg={8} p={1.5}>
-              {children}
-            </Grid>
-          </Grid>
-        </Box>
       )}
+      <Box
+        className={`${primaryFont.className}`}
+        bgcolor={theme.palette.background.default}
+        color={theme.palette.text.primary}
+      >
+        {/* Header  */}
+        <Header />
+
+        {/* Content  */}
+        <Grid
+          container
+          display="flex"
+          justifyContent="center"
+          sx={{ minHeight: "100vh" }}
+        >
+          <Grid item xs={12} sm={11} md={10} lg={8} p={1.5}>
+            {children}
+          </Grid>
+        </Grid>
+      </Box>
     </>
   );
 }
