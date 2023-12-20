@@ -59,9 +59,10 @@ export default function Header() {
           component="div"
           sx={{
             flexGrow: 1,
-            fontSize: 18,
+            fontSize: 16,
             display: { xs: "none", sm: "block" },
             fontWeight: 600,
+            color: theme.palette.primary.main,
           }}
           noWrap
           color="text.primary"

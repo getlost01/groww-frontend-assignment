@@ -103,6 +103,7 @@ export default function MyCart() {
             <Button
               variant="outlined"
               size="small"
+              disabled={isLoading}
               sx={{
                 borderRadius: 2,
                 fontSize: 12,
