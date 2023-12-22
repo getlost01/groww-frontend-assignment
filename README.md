@@ -71,11 +71,11 @@ I've implemented a new feature for diverse themes by introducing a random theme 
 
 ### Checkout Page ( with random theme )
 
-<img width="560" alt="Screenshot 2023-12-20 at 11 10 12 AM" src="https://github.com/getlost01/groww-frontend-assignment/assets/79409258/fa7f7550-8e07-49a6-a7e3-8e9e8043a7da">
+<img width="560" src="https://github.com/getlost01/groww-frontend-assignment/assets/79409258/66e29d03-14dc-4487-9681-0f705d6717ad">
 
 ### Checkout Page ( in mobile )
 
-<img width="180" alt="Screenshot 2023-12-20 at 11 10 03 AM" src="https://github.com/getlost01/groww-frontend-assignment/assets/79409258/fe1e901d-cbb6-4dc7-bb42-2040f25e0697">
+<img width="180" src="https://github.com/getlost01/groww-frontend-assignment/assets/79409258/fe1e901d-cbb6-4dc7-bb42-2040f25e0697">
 
 
 ## Getting Started
@@ -110,5 +110,7 @@ git push origin branch_name
 ```
 
 ------
+
+![](https://komarev.com/ghpvc/?username=gl01-groww-frontend-assign&color=dc143c)
 
 Made with :heart: and NextJS (aka Typescript) and Managed by Zustand
